@@ -81,6 +81,30 @@ $ bin/console doctrine:migrations:migrate
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
+Override the GatewayConfig Payment entity to use `GatewayConfigTrait`
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity\Payment;
+
+use BitBag\SyliusMolliePlugin\Entity\GatewayConfigTrait;
+use Doctrine\ORM\Mapping as ORM;
+use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="sylius_gateway_config")
+ */
+class GatewayConfig extends BaseGatewayConfig
+{
+    use GatewayConfigTrait;
+}
+
+```
+
 ## Usage
 
 ### Rendering Mollie credit card form
